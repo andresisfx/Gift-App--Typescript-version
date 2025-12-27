@@ -1,4 +1,5 @@
-import type { Gif } from "../../mock-data/gifts.mock"
+import type { Gif } from "../../gifs/interfaces/gif.interface"
+
 interface Giflist {
     gifs: Gif[]
 }
