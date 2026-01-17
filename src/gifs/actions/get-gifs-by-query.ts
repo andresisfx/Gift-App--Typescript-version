@@ -4,7 +4,11 @@ import { giphyApi } from "./giphy.api";
 
 
 export const getGifsByQuery = async (query:string):Promise<Gif[]> => {
-    const response = await giphyApi<GiphyResponse>(`/search?`,
+
+    if(query.length === 0) return [];
+   
+    try {
+         const response = await giphyApi<GiphyResponse>(`/search?`,
 
         {
             params: {
@@ -17,12 +21,16 @@ export const getGifsByQuery = async (query:string):Promise<Gif[]> => {
             }
         }
     
-    )
-    return response.data.data.map((gif) => ({
-        id: gif.id,
-        title: gif.title,
-        url: gif.images.downsized.url,
-        width: Number(gif.images.downsized.width),
-        height: Number(gif.images.downsized.height)
-    }))
+      )
+        return response.data.data.map((gif) => ({
+            id: gif.id,
+            title: gif.title,
+            url: gif.images.downsized.url,
+            width: Number(gif.images.downsized.width),
+            height: Number(gif.images.downsized.height)
+        }))
+    } catch (error) {
+        console.error(error)
+        return []
+    }
 }
