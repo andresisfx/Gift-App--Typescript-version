@@ -58,14 +58,20 @@ describe('getGifsByQuery',()=>{
     })
 
     test('should handle error when api returns an error ',async ( )=>{
-
+       
+      const consoleerrorSpy = vi.spyOn(console,'error')
+      .mockImplementation(() => {})
        mock.onGet('/search?').reply(400,{
         data:{
             message:'bad request'
         }
        })
 
-       const gifs = await getGifsByQuery('goku')
+       const gifs = await getGifsByQuery('goku');
 
+       expect(gifs.length).toBe(0)
+       expect(consoleerrorSpy).toHaveBeenCalled()
+       expect(consoleerrorSpy).toHaveBeenCalledTimes(1)
+       expect(consoleerrorSpy).toHaveBeenCalledWith(expect.anything())
     })
 })
