@@ -1,26 +1,18 @@
-import {describe, test, expect} from "vitest";
+import { describe, test, expect } from "vitest";
 import { giphyApi } from "./giphy.api";
 
+describe("giphyApi", () => {
+  test("should be configured correctly", () => {
+    console.log(giphyApi.defaults);
+    const params = giphyApi.defaults.params;
 
-describe('giphyApi',()=>{
+    expect(giphyApi.defaults.baseURL).toBe("https://api.giphy.com/v1/gifs");
+    expect(params.lang).toBe("es");
+    expect(params.api_key).toBe(import.meta.env.VITE_GIPHY_API_kEY);
 
-      test('should be configured correctly',()=>{
-        console.log(giphyApi.defaults)
-        const params = giphyApi.defaults.params
-
-        expect(giphyApi.defaults.baseURL).toBe('https://api.giphy.com/v1/gifs')
-        expect(params.lang).toBe('es');
-        expect(params.api_key).toBe(import.meta.env.VITE_GIPHY_API_kEY)
-
-
-        expect(params).toStrictEqual({
-            
-                api_key: import.meta.env.VITE_GIPHY_API_kEY,
-                lang: "es",
-            
-        })
-
-      })
-    }
-
-)
+    expect(params).toStrictEqual({
+      api_key: import.meta.env.VITE_GIPHY_API_kEY,
+      lang: "es",
+    });
+  });
+});

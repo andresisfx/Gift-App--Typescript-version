@@ -13,8 +13,12 @@ export const useGifs = () => {
 
       if(gifsCache.current[term]){
         setGifFetched(gifsCache.current[term])
+        return
       } 
-     
+      const gifs= await  getGifsByQuery(term);
+
+      setGifFetched(gifs)
+      gifsCache.current[term] = gifs
       
     }
 
